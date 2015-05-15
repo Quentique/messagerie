@@ -102,6 +102,7 @@ if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 
  <thead>
 	 <?php if ($_GET['action'] == 'sent')
 		{?>
+		
 	 <tr><td></td><td><?php _e('Receiver', 'messagerie');?></td><td><?php _e('Object', 'messagerie');?></td><td><?php _e('Mail', 'messagerie');?></td><td><?php _e('Date of Sending', 'messagerie');?></td><td></td></tr>
 		<?php
 		}

@@ -28,6 +28,10 @@ span[id="cke_txt-aref_arialbl"] + div span[id="cke_1_top"]
 {
 display: block;
 }
+nav ul li
+{
+display: inline;
+}
 #inbox
 {
 border-collapse: collapse;
