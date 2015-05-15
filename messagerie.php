@@ -95,7 +95,7 @@ $reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}me
 	</ul>
 	</div>
 <?php
-if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 'sent')
+if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 'sent' || $_GET['action'] == 'trash')
 {
 ?>
 <table id="inbox">
@@ -119,6 +119,10 @@ if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 
 		$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE sender = %d ORDER BY date_envoi DESC", get_current_user_id()));
 
 	}
+	elseif($_GET['action'] == 'trash')
+	{
+	$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE receiver = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'trash'));
+	}
 else
 {
 	$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE receiver = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'inbox'));
@@ -133,7 +137,7 @@ else
 
 <?php }
 else { ?>
-<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo esc_html(substr($donnes->message, 0, 20)); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&action=delete&mail=<?php echo $donnes->id; ?>"><img alt="Del" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/delete.png"/></a></td></tr>
+<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo esc_html(substr($donnes->message, 0, 20)); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&action=delete&mail=<?php echo $donnes->id; ?>"><img alt="Del" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['action'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
 <?php }
 }
 echo '</tbody></table>';;
