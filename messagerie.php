@@ -137,7 +137,7 @@ else
 
 <?php }
 else { ?>
-<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo esc_html(substr($donnes->message, 0, 20)); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&action=delete&mail=<?php echo $donnes->id; ?>"><img alt="Del" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['action'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
+<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo esc_html(substr($donnes->message, 0, 20)); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&action=delete&mail=<?php echo $donnes->id; ?>"><img alt="<?php if ($_GET['action'] == 'trash') { echo 'Undo';} else { echo 'Del';}?>" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['action'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
 <?php }
 }
 echo '</tbody></table>';;
