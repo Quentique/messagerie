@@ -1,0 +1,64 @@
+#messagerie_sidebar
+{
+float: left;
+margin-right: 25px;
+padding: 7px;
+}
+#messagerie_sidebar li
+{
+margin-top: 5px;
+border: 2px solid #E7E7E7;
+background-color: white;
+padding: 5px;
+}
+
+#test2 + div
+{
+width: 600px;
+}
+#cke_1_contents
+{
+height: 300px;
+}
+#cke_1_top
+{
+display: block;
+}
+span[id="cke_txt-aref_arialbl"] + div span[id="cke_1_top"]
+{
+display: block;
+}
+#inbox
+{
+border-collapse: collapse;
+}
+#inbox thead tr
+{
+border-bottom: solid 1px #E7E7E7;
+}
+#inbox thead td
+{
+padding: 10px;
+vertical-align: center;
+text-align: center;
+
+}
+#inbox
+{
+background-color: white;
+border: 1px solid #E7E7E7;
+box-shadow: 1px 1px 12px #D7D7D7;
+}
+#inbox tbody td
+{
+padding: 10px;
+text-align: center;
+}
+#inbox tbody > :nth-child(odd)
+{
+background-color: #F9F9F9;
+}
+div#cke_test2 div.cke_inner span.cke_top
+{
+display: none;
+}
