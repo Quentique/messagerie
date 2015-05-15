@@ -169,7 +169,7 @@ elseif ($_GET['action'] == read)
 			editor = ev.editor;
 editor.setReadOnly(true);
 
-		});</script></td></tr>
+		});  </script></td></tr>
 	</table>
 	<?php 
 	} elseif ($_GET['action'] == 'compose' || $_GET['action'] == 'answer')
