@@ -246,7 +246,7 @@ editor.setReadOnly(true);
 	}
 	else { $select = ''; }
 	 echo '<option ' . $select . ' value="' . $user->id . '">' . $user->display_name . '</option>';
-	}
+	 }
 	?>
 	</select></td></tr>
 	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'continue') { echo 'value="' . $mess->objet . '"'; }?>/></td></tr>
