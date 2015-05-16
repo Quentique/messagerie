@@ -196,7 +196,7 @@ editor.setReadOnly(true);
 		}
 	?>
 	<form method="post" action="">
-	<table>
+	<table id="compose">
 	<tr><td><?php _e('From :', 'messagerie'); ?></td><td><?php echo wp_get_current_user()->display_name; ?></td></tr>
 	<tr><td><label for="desti"><?php _e('To :', 'messagerie');?></label></td><td><select name="desti">
 	<?php 
