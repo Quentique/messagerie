@@ -98,12 +98,12 @@ $reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}me
 	</ul>
 	</div>
 <?php
-if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 'sent' || $_GET['action'] == 'trash')
+if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 'sent' || $_GET['action'] == 'trash' || $_GET['action'] == 'draft')
 {
 ?>
 <table id="inbox">
  <thead>
-	 <?php if ($_GET['action'] == 'sent')
+	 <?php if ($_GET['action'] == 'sent' || $_GET['action'] == 'draft')
 		{?>
 		
 	 <tr><td><?php _e('Receiver', 'messagerie');?></td><td><?php _e('Object', 'messagerie');?></td><td><?php _e('Mail', 'messagerie');?></td><td><?php _e('Date of Sending', 'messagerie');?></td></tr>
@@ -134,10 +134,10 @@ else
 	
 	foreach($reponse as $donnes)
 	{
-	 if ($_GET['action'] == 'sent')
+	 if ($_GET['action'] == 'sent' || $_GET['action'] == 'draft')
 		{
 ?>
-<tr><td><?php echo get_user_by('id', $donnes->receiver)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td></tr>
+<tr><td><?php echo get_user_by('id', $donnes->receiver)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><?php if ($_GET['action'] == 'draft') { echo '<td><img alt="Del" src="' .  plugins_url()  .'/messagerie/delete.png" style="width: 25px; height: 25px;"/></td>'; }?></tr>
 
 <?php }
 else { ?>
