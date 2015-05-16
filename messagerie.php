@@ -92,6 +92,8 @@ $reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}me
 	
 	_e('<li><a href="?page=messagerie&action=trash">Trash</a></li>', 'messagerie'); 
 	
+	
+		_e('<li><a href="?page=messagerie&action=draft">Drafts</a></li>', 'messagerie'); 
 	?>
 	</ul>
 	</div>
@@ -142,7 +144,7 @@ else { ?>
 <tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo $donnes->objet; ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&action=<?php if($_GET['action'] == 'trash') {echo 'undo'; } else { echo 'delete';}?>&mail=<?php echo $donnes->id; ?>"><img alt="<?php if ($_GET['action'] == 'trash') { echo 'Undo';} else { echo 'Del';}?>" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['action'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
 <?php }
 }
-echo '</tbody></table>';;
+echo '</tbody></table>';
 }
 elseif ($_GET['action'] == read)
 {
@@ -183,16 +185,26 @@ editor.setReadOnly(true);
 	 if (isset($_POST['desti']))
 		{
 		  if (empty($_POST['obj']))
-		{
+				{
 		$obj = __('Unapplicable', 'messagerie');
-		}
-		else
-		{
-		$obj = $_POST['obj'];
-		}
-		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi, dossier) VALUES (%d, %d, 1, %s, %s, NOW(), "inbox");', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess']));
-	
-			echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=inbox"/>';
+				}
+				else
+				{
+					$obj = $_POST['obj'];
+				}
+		
+		 if (isset($_POST['envoie']))
+			{
+				$folder = 'inbox';
+			}
+			else
+			{
+			$folder = 'draft';
+			}
+			
+		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi, dossier) VALUES (%d, %d, 1, %s, %s, NOW(), %s);', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess'], $folder));
+			
+	 	echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=inbox"/>';
 		}
 	?>
 	<form method="post" action="">
@@ -218,7 +230,7 @@ editor.setReadOnly(true);
 	</select></td></tr>
 	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; }?>/></td></tr>
 	<tr><td><label for="mess"><?php _e('Mail :', 'messagerie');?></label></td><td><textarea rows="10" cols="25" name="mess" id="txt-aref"><html><body><?php if (isset($mess)) { echo html_entity_decode('<br/><hr/><span>De : ' . get_user_by('id', $mess->sender)->display_name . '</span><br/><span>A : ' . get_user_by('id', $mess->receiver)->display_name . '</span><br/><span>Objet : </span>' . $mess->objet . '</span><br/><span>Date : ' . $mess->date_envoi . '</span><br/><br/> ' . $mess->message); }?></body></html></textarea></td></tr>
-	<tr><td colspan="2"><input type="submit" value="<?php _e('Submit', 'messagerie'); ?>"/><input type="submit" value="<?php _e('Save Draft', 'messagerie');?>"/></td></tr>
+	<tr><td colspan="2"><input type="submit" name="envoie" value="<?php _e('Submit', 'messagerie'); ?>"/><input type="submit" name="brouillon" value="<?php _e('Save Draft', 'messagerie');?>"/></td></tr>
 	</table>
 	</form>
 	<script>CKEDITOR.replace('txt-aref');</script>
