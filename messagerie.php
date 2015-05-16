@@ -190,7 +190,7 @@ editor.setReadOnly(true);
 		{
 		$obj = $_POST['obj'];
 		}
-		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi) VALUES (%d, %d, 1, %s, %s, NOW());', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess']));
+		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi, dossier) VALUES (%d, %d, 1, %s, %s, NOW(), "inbox");', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess']));
 	
 			echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=inbox"/>';
 		}
