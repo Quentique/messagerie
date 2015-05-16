@@ -240,10 +240,11 @@ editor.setReadOnly(true);
 	}
 	foreach($users as $user)
 	{
-	if (isset($mess) && $user->id == $mess->sender && $_GET['action'] == 'answer' || $_GET['action'] == 'continue')
+	if (isset($mess) && $user->id == $mess->sender )
 	{
 				$select = 'selected';
 	}
+	else { $select = ''; }
 	 echo '<option ' . $select . ' value="' . $user->id . '">' . $user->display_name . '</option>';
 	}
 	?>
