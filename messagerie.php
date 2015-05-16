@@ -38,7 +38,7 @@ public static function uninstall()
 public function add_admin_menu()
 {
 global $wpdb;
-$reponse = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM wp_messagerie WHERE unread = 1 AND receiver = %d', get_current_user_id()));
+$reponse = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM wp_messagerie WHERE unread = 1 AND receiver = %d AND dossier = "inbox"', get_current_user_id()));
 if ($reponse == 0)
 {
 add_menu_page('Messagerie', 'Messagerie', 'manage_options', 'messagerie',  array($this, 'administration'));
@@ -77,7 +77,7 @@ if ($_GET['action'] == read)
 <div id="messagerie_sidebar">
 <ul><?php
 global $wpdb;
-$reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}messagerie WHERE unread = 1 AND receiver = %d", get_current_user_id()));
+$reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}messagerie WHERE unread = 1 AND receiver = %d AND dossier = \"inbox\"", get_current_user_id()));
 
 	if(empty($reponse))
 	{
