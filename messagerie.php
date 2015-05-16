@@ -141,7 +141,7 @@ else
 	 if ($_GET['action'] == 'sent' || $_GET['action'] == 'draft')
 		{
 ?>
-<tr><td><?php echo get_user_by('id', $donnes->receiver)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><?php if ($_GET['action'] == 'draft') { echo '<td><img alt="Del" src="' .  plugins_url()  .'/messagerie/delete.png" style="width: 25px; height: 25px;"/></td>'; }?></tr>
+<tr><td><?php echo get_user_by('id', $donnes->receiver)->display_name; ?></td><td><a href="?page=messagerie&action=read&mail=<?php echo $donnes->id; ?>"><?php echo esc_html($donnes->objet); ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><?php if ($_GET['action'] == 'draft') { echo '<td><a href="?page=messagerie&action=deldraft&mail=' . $donnes->id . '"><img alt="Del" src="' .  plugins_url()  .'/messagerie/delete.png" style="width: 25px; height: 25px;"/></a></td>'; }?></tr>
 
 <?php }
 else { ?>
