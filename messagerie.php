@@ -184,7 +184,7 @@ editor.setReadOnly(true);
 		});  </script></td></tr>
 	</table>
 	<?php 
-	} elseif ($_GET['action'] == 'compose' || $_GET['action'] == 'answer' || $_GET['action'] == 'forward')
+	} elseif ($_GET['action'] == 'compose' || $_GET['action'] == 'answer' || $_GET['action'] == 'forward' || $_GET['action'] == 'continue' )
 	{
 	 if (isset($_POST['desti']))
 		{
@@ -205,9 +205,18 @@ editor.setReadOnly(true);
 			{
 			$folder = 'draft';
 			}
+
+			if (isset($_POST['id_mess']) && isset($_POST['brouillon']))
+			{
+
+				$wpdb->update('wp_messagerie', array('receiver' => $_POST['desti'], 'objet' => $obj, 'message' => $_POST['mess']), array('id' => $_POST['id_mess']), array('%d', '%s', '%s'), array('%d', '%s', '%s'));
+				$wpdb->query('UPDATE wp_messagerie SET date_envoi = NOW() WHERE id = ' . $_POST['id_mess']);
 			
+			}
+			else
+			{
 		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi, dossier) VALUES (%d, %d, 1, %s, %s, NOW(), %s);', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess'], $folder));
-			
+			}
 	 	echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=inbox"/>';
 		}
 	?>
@@ -218,13 +227,13 @@ editor.setReadOnly(true);
 	<?php 
 	$users = get_users(array('fields' => array('id', 'display_name' )));
 	
-	if ($_GET['action'] == answer || $_GET['action'] == 'forward')
+	if ($_GET['action'] == answer || $_GET['action'] == 'forward' || $_GET['action'] == 'continue')
 	{
 	 $mess = $wpdb->get_row($wpdb->prepare('SELECT * FROM wp_messagerie WHERE id = %d', $_GET['mail']));
 	}
 	foreach($users as $user)
 	{
-	if (isset($mess) && $user->id == $mess->sender && $_GET['action'] == 'answer')
+	if (isset($mess) && $user->id == $mess->sender && ($_GET['action'] == 'answer' || $_GET['action'] == 'continue'))
 	{
 				$select = 'selected';
 	}
@@ -232,9 +241,9 @@ editor.setReadOnly(true);
 	}
 	?>
 	</select></td></tr>
-	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; }?>/></td></tr>
-	<tr><td><label for="mess"><?php _e('Mail :', 'messagerie');?></label></td><td><textarea rows="10" cols="25" name="mess" id="txt-aref"><html><body><?php if (isset($mess)) { echo html_entity_decode('<br/><hr/><span>De : ' . get_user_by('id', $mess->sender)->display_name . '</span><br/><span>A : ' . get_user_by('id', $mess->receiver)->display_name . '</span><br/><span>Objet : </span>' . $mess->objet . '</span><br/><span>Date : ' . $mess->date_envoi . '</span><br/><br/> ' . $mess->message); }?></body></html></textarea></td></tr>
-	<tr><td colspan="2"><input type="submit" name="envoie" value="<?php _e('Submit', 'messagerie'); ?>"/><input type="submit" name="brouillon" value="<?php _e('Save Draft', 'messagerie');?>"/></td></tr>
+	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'continue') { echo 'value="' . $mess->objet . '"'; }?>/></td></tr>
+	<tr><td><label for="mess"><?php _e('Mail :', 'messagerie');?></label></td><td><textarea rows="10" cols="25" name="mess" id="txt-aref"><?php if (isset($mess) && $_GET['action'] != 'continue') { echo html_entity_decode('<br/><hr/><span>De : ' . get_user_by('id', $mess->sender)->display_name . '</span><br/><span>A : ' . get_user_by('id', $mess->receiver)->display_name . '</span><br/><span>Objet : </span>' . $mess->objet . '</span><br/><span>Date : ' . $mess->date_envoi . '</span><br/><br/> ' . $mess->message); } elseif (isset($mess) && $_GET['action'] == 'continue') { echo $mess->message; }?></textarea></td></tr>
+	<tr><td colspan="2"><input type="submit" name="envoie" value="<?php _e('Submit', 'messagerie'); ?>"/><input type="submit" name="brouillon" value="<?php _e('Save Draft', 'messagerie');?>"/><?php if(isset($mess) && $_GET['action'] == 'continue') { echo '<input type="hidden" name="id_mess" value="' . $mess->id . '"/>';}?></td></tr>
 	</table>
 	</form>
 	<script>CKEDITOR.replace('txt-aref');</script>
