@@ -215,7 +215,14 @@ editor.setReadOnly(true);
 			}
 			else
 			{
+			
+			
 		 $response = $wpdb->query($wpdb->prepare('INSERT INTO wp_messagerie(sender, receiver, unread, objet, message, date_envoi, dossier) VALUES (%d, %d, 1, %s, %s, NOW(), %s);', get_current_user_id(), $_POST['desti'], $obj, $_POST['mess'], $folder));
+			if (isset($_POST['id_mess']) && isset($_POST['envoie']))
+			{
+			$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE id = %d', $_POST['id_mess']));
+			}
+			
 			}
 	 	echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=inbox"/>';
 		}
@@ -233,7 +240,7 @@ editor.setReadOnly(true);
 	}
 	foreach($users as $user)
 	{
-	if (isset($mess) && $user->id == $mess->sender && ($_GET['action'] == 'answer' || $_GET['action'] == 'continue'))
+	if (isset($mess) && $user->id == $mess->sender && $_GET['action'] == 'answer' || $_GET['action'] == 'continue')
 	{
 				$select = 'selected';
 	}
