@@ -216,7 +216,7 @@ editor.setReadOnly(true);
 	}
 	?>
 	</select></td></tr>
-	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } else { echo 'value="FW: '. $mess->objet . '"'; }?>/></td></tr>
+	<tr><td><label for="obj"><?php _e('Object :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['action'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['action'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; }?>/></td></tr>
 	<tr><td><label for="mess"><?php _e('Mail :', 'messagerie');?></label></td><td><textarea rows="10" cols="25" name="mess" id="txt-aref"><html><body><?php if (isset($mess)) { echo html_entity_decode('<br/><hr/><span>De : ' . get_user_by('id', $mess->sender)->display_name . '</span><br/><span>A : ' . get_user_by('id', $mess->receiver)->display_name . '</span><br/><span>Objet : </span>' . $mess->objet . '</span><br/><span>Date : ' . $mess->date_envoi . '</span><br/><br/> ' . $mess->message); }?></body></html></textarea></td></tr>
 	<tr><td rowspan="2"><input type="submit" value="Envoyer"/></td></tr>
 	</table>
