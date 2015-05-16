@@ -127,6 +127,10 @@ if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 
 	{
 	$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE receiver = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'trash'));
 	}
+	elseif($_GET['action'] == 'draft')
+	{
+	$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE sender = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'draft'));
+	}
 else
 {
 	$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE receiver = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'inbox'));
