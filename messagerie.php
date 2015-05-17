@@ -22,6 +22,8 @@ class Messagerie
  {
 		global $wpdb;
 		$wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}messagerie (id INT AUTO_INCREMENT PRIMARY KEY, sender VARCHAR(255) NOT NULL, receiver VARCHAR(255) NOT NULL, unread INT NOT NULL, objet VARCHAR(255) NOT NULL, message TEXT NOT NULL, date_envoi DATETIME NOT NULL, dossier VARCHAR(255) NOT NULL);");
+	 		$wpdb->query("ALTER TABLE {$wpdb->prefix}users  ADD can_mail BOOLEAN DEFAULT true" );
+
 	}
 		
 		
@@ -29,6 +31,7 @@ class Messagerie
 	{
 		global $wpdb;
   $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}messagerie;");
+		$wpdb->query("ALTER TABLE {$wpdb->prefix}users DROP can_mail;");
 	}
 
 	public function add_admin_menu()
@@ -89,9 +92,9 @@ class Messagerie
 		{
 	   include_once('delete_draft.php');
 		}
-		}
 	}
 }
+
 
 new Messagerie();
 ?>
