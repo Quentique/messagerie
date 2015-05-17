@@ -1,4 +1,4 @@
- if (!isset($_GET['mail']))
+ <?pgp if (!isset($_GET['mail']))
 	{
 	echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie"/>';
 	}
