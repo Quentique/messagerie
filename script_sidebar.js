@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 	
 	jQuery('#draft_folder').click(function() {
 		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=draft #content_messagerie');
-		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');
+		jQuery.getScript('../wp-content/plugins/messagerie/script_draft.js');
 		});
 	
 	jQuery('#inbox_folder').click(function () {
