@@ -1,12 +1,16 @@
 <table id="inbox">
  <thead>
-	 <?php if ($_GET['action'] == 'sent' || $_GET['action'] == 'draft')
+	 <?php if ($_GET['action'] == 'sent')
 		{
 		?>
 			<tr><td><?php _e('Receiver', 'messagerie');?></td><td><?php _e('Object', 'messagerie');?></td><td><?php _e('Mail', 'messagerie');?></td><td><?php _e('Date of Sending', 'messagerie');?></td></tr>
 		<?php
 		}
-		else
+		else if ($_GET['action'] == 'draft')
+		{?>
+			<tr><td><?php _e('Receiver', 'messagerie');?></td><td><?php _e('Object', 'messagerie');?></td><td><?php _e('Mail', 'messagerie');?></td><td><?php _e('Date of Saving', 'messagerie');?></td></tr><?php
+		}
+			else
 		{
 		?>
 			<tr><td></td><td><?php _e('Sender', 'messagerie');?></td><td><?php _e('Object', 'messagerie');?></td><td><?php _e('Mail', 'messagerie');?></td><td><?php _e('Date of Sending', 'messagerie');?></td></tr>
@@ -51,3 +55,4 @@
 	}
 	
 	echo '</tbody></table>';
+

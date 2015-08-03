@@ -17,7 +17,7 @@
 	}
 	?>
 	
-	<table>
+	<table id="inbox">
 		<tr><td><?php _e('From :', 'messagerie');?></td>		<td><?php echo get_user_by('id', $reponse->sender)->display_name; ?></td></tr>
 		<tr><td><?php _e('To :', 'messagerie'); ?></td>			<td><?php echo get_user_by('id', $reponse->receiver)->display_name; ?></td></tr>
 		<tr><td><?php _e('Object :', 'messagerie');?></td><td><?php echo $reponse->objet; ?></td></tr>
