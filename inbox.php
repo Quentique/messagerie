@@ -1,4 +1,5 @@
 <table id="inbox">
+<script>jQuery.getScript('<?php echo plugins_url('script_read.js', __FILE__);?>');</script>
  <thead>
 	 <?php if ($_GET['use'] == 'sent')
 		{
@@ -49,7 +50,7 @@
 		else 
 		{ 
 		?>
-				<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="?page=messagerie&use=read&mail=<?php echo $donnes->id; ?>"><?php echo $donnes->objet; ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&use=<?php if($_GET['use'] == 'trash') {echo 'undo'; } else { echo 'delete';}?>&mail=<?php echo $donnes->id; ?>"><img alt="<?php if ($_GET['use'] == 'trash') { echo 'Undo';} else { echo 'Del';}?>" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['use'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
+				<tr <?php if ($donnes->unread == 1) { echo 'style="font-weight: bold;"'; }?>><td><?php if ($donnes->unread == 1) { echo '<img style="width: 50%" src="' . plugins_url() . '/messagerie/etoile.png"/>'; }?></td><td><?php echo get_user_by('id', $donnes->sender)->display_name; ?></td><td><a href="#" class="messagerie_lien" id_message="<?php echo $donnes->id; ?>"><?php echo $donnes->objet; ?></a></td><td><?php echo wp_kses(substr($donnes->message, 0, 20), array('')); ?></td><td><?php echo $donnes->date_envoi; ?></td><td><a href="?page=messagerie&use=<?php if($_GET['use'] == 'trash') {echo 'undo'; } else { echo 'delete';}?>&mail=<?php echo $donnes->id; ?>"><img alt="<?php if ($_GET['use'] == 'trash') { echo 'Undo';} else { echo 'Del';}?>" style="width: 25px; height: 25px;" src="<?php echo plugins_url(); ?>/messagerie/<?php if ($_GET['use'] == 'trash') { echo 'undo.png';} else { echo 'delete.png';}?>"/></a></td></tr>
 		<?php 
 		}
 	}

@@ -21,12 +21,5 @@
 		<tr><td><?php _e('From :', 'messagerie');?></td>		<td><?php echo get_user_by('id', $reponse->sender)->display_name; ?></td></tr>
 		<tr><td><?php _e('To :', 'messagerie'); ?></td>			<td><?php echo get_user_by('id', $reponse->receiver)->display_name; ?></td></tr>
 		<tr><td><?php _e('Object :', 'messagerie');?></td><td><?php echo $reponse->objet; ?></td></tr>
-		<tr><td><?php _e('Mail :', 'messagerie');?></td>		<td><textarea id="test2"><?php echo $reponse->message; ?></textarea><script>CKEDITOR.replace('test2'); 
-			var editor;
-
-			CKEDITOR.on( 'instanceReady', function( ev ) {
-			editor = ev.editor;
-			editor.setReadOnly(true);
-
-		});  </script></td></tr>
+		<tr><td><?php _e('Mail :', 'messagerie');?></td>		<td><textarea id="test2"><?php echo $reponse->message; ?></textarea></td></tr>
 	</table>

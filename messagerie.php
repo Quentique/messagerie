@@ -83,7 +83,7 @@ function ajax_test_enqueue_scripts() {
 }
 
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
-add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
+//add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
 class Messagerie
 {
 
@@ -188,6 +188,7 @@ class Messagerie
 		_e('<h1 id="titre_messagerie" style="display: inline-block;">Internal Mail</h1>', 'messagerie');
 		echo '<script src=" ' . plugins_url() . '/messagerie/ckeditor/ckeditor.js"></script>';
 		echo '<script src=" ' . plugins_url() . '/messagerie/script_pop.js"></script>';
+		//echo '<script src=" ' . plugins_url() . '/messagerie/script_read.js"></script>';
 		echo '<link rel="stylesheet" content="text/css" href="' . plugins_url() . '/messagerie/style.css"/>';
 
 		include_once('nav.php');?>
