@@ -42,7 +42,15 @@ if (!empty($_REQUEST))
 			{
 		
 					$wpdb->update('wp_messagerie', array('receiver' => $_POST['desti'], 'objet' => $obj, 'message' => $_POST['mess']), array('id' => $_POST['id_mess']), array('%d', '%s', '%s'), array('%d', '%s', '%s'));
-					$wpdb->query('UPDATE wp_messagerie SET date_envoi = NOW() WHERE id = ' . $_POST['id_mess']);
+					$resulte = $wpdb->query('UPDATE wp_messagerie SET date_envoi = NOW() WHERE id = ' . $_POST['id_mess']);
+													if ($resulte === false)
+			{
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=2';
+			}
+			else
+			{
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=3';
+			}
 			}
 			else
 			{
@@ -52,15 +60,24 @@ if (!empty($_REQUEST))
 					{
 							$result = $wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE id = %d', $_POST['id_mess']));
 					}
-			}
-			if ($result === false)
+								if ($result === false && isset($_POST['envoie']))
 			{
 	 	echo 'admin.php?page=messagerie&use=inbox&ok=0';
+			}
+			elseif ($result === false && isset($_POST['brouillon']))
+			{
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=2';
+			}
+			elseif (empty($result) && isset($_POST['brouillon']))
+			{
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=3';
 			}
 			else
 			{
 	 	echo 'admin.php?page=messagerie&use=inbox&ok=1';
 			}
+			}
+
 
 	}
 	wp_die();
