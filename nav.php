@@ -3,7 +3,7 @@
 
 		<li><a href="#" id="new_email"><?php _e('New', 'messagerie'); ?></a></li>
 		<?php 
-		if ($_GET['action'] == read)
+		if ($_GET['use'] == read)
 		{
 		?>
 		
@@ -13,58 +13,48 @@
 		} ?>
 	</ul>
 </nav>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 		<script>
 		var i = '';
 		jQuery(document).ready(function(){
     jQuery('#new_email').on('click', function () {
-				i = '?page=messagerie&use=compose';
-				get();
+				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=compose #content_messagerie', function(){;
+				get();});
 				}
 				);
 				
 			jQuery('#answer_mail').click(function () {
-				i = '?page=messagerie&use=answer&mail=<?php echo $_GET['mail'];?>';
+				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=answer&mail=<?php echo $_GET['mail'];?> #content_messagerie', function() { get();});
 				get();
 				}
 				);
 				
 				jQuery('#forward_mail').click(function () {
-				i = '?page=messagerie&use=forward&mail=<?php echo $_GET['mail'];?>';
+				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=forward&mail=<?php echo $_GET['mail'];?> #content_messagerie', function() { get();});
 				get();
 				});
 				
 				function get()
 				{
-
-					jQuery.ajax({
-       url : i,
-							type : 'GET',
-							dataType : 'html',
-							success : 	function(code_html, statut) {
-											var code = document.createElement('script');
+											/*var code = document.createElement('script');
 											code.src = '<?php echo plugin_dir_url(__FILE__); ?>script_ck.js';
 											code.type = 'text/javascript';
+											*/
+											jQuery.getScript('<?php echo plugin_dir_url(__FILE__); ?>script_ck.js');
+											jQuery.getScript('<?php echo plugin_dir_url(__FILE__); ?>script_send.js');
 											
-											var code2 = document.createElement('script');
+											/*var code2 = document.createElement('script');
 											code2.src='<?php echo plugin_dir_url(__FILE__); ?>script_send.js';
 											code2.type = 'text/javascript';
-											jQuery('#content_messagerie').replaceWith(jQuery(code_html).find('#content_messagerie'));
 											document.getElementById('composition').appendChild(code);
-											document.getElementById('composition').appendChild(code2);
-											},
+											document.getElementById('composition').appendChild(code2);*/
+											}
 
-       error : function(resultat, statut, erreur){
-         
-       },
 
-       complete : function(resultat, statut){
-
-       }
-    });
+    
 				
    
-}
+
 });
 
 
