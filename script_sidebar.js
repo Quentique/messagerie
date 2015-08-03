@@ -6,8 +6,8 @@ jQuery(document).ready(function(){
 		});
 	
 	jQuery('#trash_folder').click(function() {
-		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=trash #content_messagerie');
-		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');
+		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=trash #content_messagerie', function () {
+		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');});
 		});
 	
 	jQuery('#draft_folder').click(function() {
@@ -16,8 +16,8 @@ jQuery(document).ready(function(){
 		});
 	
 	jQuery('#inbox_folder').click(function () {
-		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=inbox #content_messagerie');
-		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');
+		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=inbox #content_messagerie', function () {
+		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');});
 		
 	});
 		
