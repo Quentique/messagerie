@@ -8,7 +8,6 @@ Author: Quentin DE MUYNCK
 */ 
 
 
-
 function prefix_admin_send_mail()
 {
 if (!empty($_REQUEST))
@@ -82,6 +81,7 @@ function ajax_test_enqueue_scripts() {
 	));
 
 }
+
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
 add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
 class Messagerie
