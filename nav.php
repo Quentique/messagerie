@@ -18,19 +18,19 @@
 		var i = '';
 		jQuery(document).ready(function(){
     jQuery('#new_email').on('click', function () {
-				i = '?page=messagerie&action=compose';
+				i = '?page=messagerie&use=compose';
 				get();
 				}
 				);
 				
 			jQuery('#answer_mail').click(function () {
-				i = '?page=messagerie&action=answer&mail=<?php echo $_GET['mail'];?>';
+				i = '?page=messagerie&use=answer&mail=<?php echo $_GET['mail'];?>';
 				get();
 				}
 				);
 				
 				jQuery('#forward_mail').click(function () {
-				i = '?page=messagerie&action=forward&mail=<?php echo $_GET['mail'];?>';
+				i = '?page=messagerie&use=forward&mail=<?php echo $_GET['mail'];?>';
 				get();
 				});
 				

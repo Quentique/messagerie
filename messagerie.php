@@ -56,11 +56,11 @@ if (!empty($_REQUEST))
 			}
 			if ($result === false)
 			{
-	 	echo 'admin.php?page=messagerie&action=inbox&ok=0';
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=0';
 			}
 			else
 			{
-	 	echo 'admin.php?page=messagerie&action=inbox&ok=1';
+	 	echo 'admin.php?page=messagerie&use=inbox&ok=1';
 			}
 
 	}
@@ -197,27 +197,27 @@ class Messagerie
 		</div>
 		<div id="content_messagerie">
 <?php
-		if (!isset($_GET['action']) || $_GET['action'] == 'inbox' || $_GET['action'] == 'sent' || $_GET['action'] == 'trash' || $_GET['action'] == 'draft')
+		if (!isset($_GET['use']) || $_GET['use'] == 'inbox' || $_GET['use'] == 'sent' || $_GET['use'] == 'trash' || $_GET['use'] == 'draft')
 		{
 				include_once('inbox.php'); 
 		}
-		elseif ($_GET['action'] == read)
+		elseif ($_GET['use'] == read)
 		{
 				include_once('read.php');
 		}
-	 elseif ($_GET['action'] == 'compose' || $_GET['action'] == 'answer' || $_GET['action'] == 'forward' || $_GET['action'] == 'continue' )
+	 elseif ($_GET['use'] == 'compose' || $_GET['use'] == 'answer' || $_GET['use'] == 'forward' || $_GET['use'] == 'continue' )
 		{
 				include_once('compose.php');
 		}
-		elseif ($_GET['action'] == 'delete')
+		elseif ($_GET['use'] == 'delete')
 		{
 				include_once('delete.php');
 		}
-		elseif ($_GET['action'] == 'undo')
+		elseif ($_GET['use'] == 'undo')
 		{
 				include_once('undo.php');
 		}
-		elseif($_GET['action'] == 'deldraft')
+		elseif($_GET['use'] == 'deldraft')
 		{
 	   include_once('delete_draft.php');
 		}

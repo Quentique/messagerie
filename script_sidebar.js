@@ -1,17 +1,17 @@
 jQuery(document).ready(function(){
 	var i = '';
 	jQuery('#sent_folder').click(function () {
-		i = '?page=messagerie&action=sent';
+		i = '&use=sent';
 		get();
 		});
 	
 	jQuery('#trash_folder').click(function() {
-		i = '?page=messagerie&action=trash';
+		i = '&use=trash';
 		get();
 		});
 	
 	jQuery('#draft_folder').click(function() {
-		i = '?page=messagerie&action=draft';
+		i = '?page=messagerie&use=draft';
 		get();
 		});
 	
