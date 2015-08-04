@@ -84,10 +84,7 @@ if (!empty($_REQUEST))
 	}
 		
 		function ajax_delete_draft() {
-			if(!isset($_GET['mail']) || empty($_GET['mail']))
-	{
-			echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=draft"/>';
-	}
+
 	
 	global $wpdb;
 	if (get_current_user_id() == $wpdb->get_var($wpdb->prepare('SELECT sender FROM wp_messagerie WHERE id = %d', $_GET['mail'])))
@@ -101,6 +98,27 @@ if (!empty($_REQUEST))
 	else
 	{
 	echo 'admin.php?page=messagerie&use=draft&ok=1';
+	}
+	wp_die();
+	}
+	
+	function ajax_delete_mail() {
+
+			
+	global $wpdb;
+	if (get_current_user_id() == $wpdb->get_var($wpdb->prepare('SELECT receiver FROM wp_messagerie WHERE id = %d', $_GET['mail'])))
+	{
+			$result = $wpdb->update('wp_messagerie', array('dossier' => 'trash'), array('id' => $_GET['mail']), array('%s'), array('%s'));
+	}
+	
+	if ($result == false)
+	{
+	echo 'admin.php?page=messagerie&use=inbox&ok=0';
+	}
+	else
+	{
+		echo 'admin.php?page=messagerie&use=inbox&ok=1';
+
 	}
 	wp_die();
 	}
@@ -122,6 +140,7 @@ function ajax_test_enqueue_scripts() {
 
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
 add_action('wp_ajax_delete_draft', 'ajax_delete_draft');
+add_action('wp_ajax_delete_mail', 'ajax_delete_mail');
 //add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
 class Messagerie
 {
