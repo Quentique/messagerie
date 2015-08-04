@@ -29,6 +29,8 @@ jQuery.ajax({
 			{
 			jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de la suppression !</span>');
 			}
+			
+			jQuery('#popup').delay(3000).fadeOut('slow');
 
 		  });
 		  }
