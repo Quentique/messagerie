@@ -83,6 +83,26 @@ if (!empty($_REQUEST))
 	wp_die();
 	}
 		
+		function ajax_delete_draft() {
+			if(!isset($_GET['mail']) || empty($_GET['mail']))
+	{
+			echo '<meta http-equiv="refresh" content="0;URL=?page=messagerie&action=draft"/>';
+	}
+	
+	global $wpdb;
+	if (get_current_user_id() == $wpdb->get_var($wpdb->prepare('SELECT sender FROM wp_messagerie WHERE id = %d', $_GET['mail'])))
+	{
+		 $result = $wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE id = %d', $_GET['mail']));
+	}
+	if ($result == false)
+	{
+	echo 'admin.php?page=messagerie&use=draft&ok=0';
+	}
+	else
+	{
+	echo 'admin.php?page=messagerie&use=draft&ok=1';
+	}
+	}
 
 function ajax_test_enqueue_scripts() {
 
@@ -100,6 +120,7 @@ function ajax_test_enqueue_scripts() {
 }
 
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
+add_action('wp_ajax_delete_draft', 'ajax_delete_draft');
 //add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
 class Messagerie
 {

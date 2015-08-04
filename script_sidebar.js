@@ -11,8 +11,10 @@ jQuery(document).ready(function(){
 		});
 	
 	jQuery('#draft_folder').click(function() {
-		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=draft #content_messagerie');
+		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=draft #content_messagerie', function () {
 		jQuery.getScript('../wp-content/plugins/messagerie/script_draft.js');
+		jQuery.getScript('../wp-content/plugins/messagerie/script_delete.js');
+		});
 		});
 	
 	jQuery('#inbox_folder').click(function () {
