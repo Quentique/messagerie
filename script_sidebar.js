@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+console.log('hello456');
 	var i = '';
 	jQuery('#sent_folder').click(function () {
 		jQuery('#content_messagerie').load('admin.php #content_messagerie', 'page=messagerie&use=sent', function() {
@@ -13,7 +14,7 @@ jQuery(document).ready(function(){
 	jQuery('#draft_folder').click(function() {
 		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=draft #content_messagerie', function () {
 		jQuery.getScript('../wp-content/plugins/messagerie/script_draft.js');
-		jQuery.getScript('../wp-content/plugins/messagerie/script_delete.js');
+		//jQuery.getScript('../wp-content/plugins/messagerie/script_delete.js');
 		});
 		});
 	

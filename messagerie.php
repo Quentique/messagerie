@@ -102,6 +102,7 @@ if (!empty($_REQUEST))
 	{
 	echo 'admin.php?page=messagerie&use=draft&ok=1';
 	}
+	wp_die();
 	}
 
 function ajax_test_enqueue_scripts() {
