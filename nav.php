@@ -3,7 +3,7 @@
 
 		<li><a href="#" id="new_email"><?php _e('New', 'messagerie'); ?></a></li>
 		<?php 
-		if ($_GET['use'] == read)
+		if ($_GET['use'] == read && $_GET['trash'] == "0")
 		{
 		?>
 		

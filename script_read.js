@@ -2,7 +2,15 @@ jQuery(document).ready(function(){
 alert('hello');
 jQuery('#inbox .messagerie_lien').click(function (e) {
 alert('hello2');
-	jQuery('#wpbody-content').load('admin.php?page=messagerie&use=read&mail=' + jQuery(e.target).attr('id_message') + ' #wpbody-content', function (){
+	if (jQuery(e.target).attr('trash') == 'undefined')
+	{
+	var trash = "&trash=0";
+	}
+	else
+	{
+	var trash = "&trash=1";
+	}
+	jQuery('#wpbody-content').load('admin.php?page=messagerie&use=read&mail=' + jQuery(e.target).attr('id_message') + trash + ' #wpbody-content', function (){
 	jQuery.getScript('../wp-content/plugins/messagerie/script_ck2.js');
 	jQuery.getScript('../wp-content/plugins/messagerie/script_sidebar.js');
 	jQuery.getScript('../wp-content/plugins/messagerie/script_nav.js');
