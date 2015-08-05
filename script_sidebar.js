@@ -8,7 +8,8 @@ console.log('hello456');
 	
 	jQuery('#trash_folder').click(function() {
 		jQuery('#content_messagerie').load('admin.php?page=messagerie&use=trash #content_messagerie', function () {
-		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');});
+		jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');
+		jQuery.getScript('../wp-content/plugins/messagerie/script_trash.js');});
 		});
 	
 	jQuery('#draft_folder').click(function() {

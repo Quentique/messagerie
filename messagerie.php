@@ -122,6 +122,21 @@ if (!empty($_REQUEST))
 	}
 	wp_die();
 	}
+	
+	function ajax_undo() {
+	global $wpdb;
+	$result = $wpdb->update('wp_messagerie', array('dossier' => 'inbox'), array('id' => $_GET['mail']), array('%s'), array('%s'));
+	
+	if ($result == false) 
+	{
+		echo 'admin.php?page=messagerie&use=trash&ok=0';
+	}
+	else
+	{
+		echo 'admin.php?page=messagerie&use=trash&ok=1';
+	}
+	wp_die();
+	}
 
 function ajax_test_enqueue_scripts() {
 
@@ -141,6 +156,7 @@ function ajax_test_enqueue_scripts() {
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
 add_action('wp_ajax_delete_draft', 'ajax_delete_draft');
 add_action('wp_ajax_delete_mail', 'ajax_delete_mail');
+add_action('wp_ajax_undo', 'ajax_undo');
 //add_action('wp_enqueue_scripts', 'ajax_test_enqueue_scripts');
 class Messagerie
 {
