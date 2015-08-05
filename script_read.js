@@ -2,7 +2,8 @@ jQuery(document).ready(function(){
 alert('hello');
 jQuery('#inbox .messagerie_lien').click(function (e) {
 alert('hello2');
-	if (jQuery(e.target).attr('trash') == 'undefined')
+alert(jQuery(e.target).attr('trash'));
+	if (typeof jQuery(e.target).attr('trash') == 'undefined')
 	{
 	var trash = "&trash=0";
 	}
