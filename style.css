@@ -4,6 +4,10 @@ float: left;
 margin-right: 25px;
 padding: 7px;
 }
+#messagerie_sidebar ul li:first-child
+{
+margin-top: 0px;
+}
 #messagerie_sidebar li
 {
 margin-top: 5px;
@@ -35,6 +39,21 @@ display: inline;
 #inbox
 {
 border-collapse: collapse;
+}
+#image
+{
+position: relative;
+}
+.loader {
+
+position : fixed;
+z-index: 9999;
+background : url('loader.gif') 50% 50% no-repeat;
+top : 0px;
+left : 0px;
+height : 100%;
+width : 100%;
+cursor : wait;
 }
 #inbox thead tr
 {

@@ -2,20 +2,23 @@
 		jQuery(document).ready(function(){
 		alert('hellol');
     jQuery('#new_email').on('click', function () {
-				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=compose #content_messagerie', function(){;
+	jQuery('#inbox').append('<div class="loader"></div>');
+				jQuery('#wpbody').load('admin.php?page=messagerie&use=compose #wpbody-content', function(){;
 				get();
 				});
 				}
 				);
 				
 			jQuery('#answer_mail').click(function (e) {
-				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=answer&mail=' + jQuery(e.target).attr('id_message')+ ' #content_messagerie', function() { get();});
+			jQuery('#inbox').append('<div class="loader"></div>');
+				jQuery('#wpbody').load('admin.php?page=messagerie&use=answer&mail=' + jQuery(e.target).attr('id_message')+ ' #wpbody-content', function() { get();});
 				get();
 				}
 				);
 				
 				jQuery('#forward_mail').click(function (e) {
-				jQuery('#content_messagerie').load('admin.php?page=messagerie&use=forward&mail=' + jQuery(e.target).attr('id_message')+ ' #content_messagerie', function() { get();});
+				jQuery('#inbox').append('<div class="loader"></div>');
+				jQuery('#wpbody').load('admin.php?page=messagerie&use=forward&mail=' + jQuery(e.target).attr('id_message')+ ' #wpbody-content', function() { get();});
 				get();
 				});
 				

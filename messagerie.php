@@ -212,6 +212,7 @@ class Messagerie
 		global $wpdb;
 		$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE receiver = %d OR sender = %d', $user_id, $user_id));
 	}
+	
 	public function options()
 	{
 	global $wpdb;

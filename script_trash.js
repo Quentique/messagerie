@@ -1,6 +1,7 @@
 jQuery(document).ready(function () {
 alert('test');
-jQuery('#inbox .messagerie_delete').click(function (g) {
+jQuery('#inbox .messagerie_undo').click(function (g) {
+jQuery('#inbox').append('<div class="loader"></div>');
 jQuery.ajax({
 		url : ajaxurl,
 		type : 'GET',
@@ -8,7 +9,7 @@ jQuery.ajax({
 		data : 'action=undo&mail=' + jQuery(g.target).closest('a').attr('id_message'),
 
 	      success : function(code_html, statut){
-		  jQuery('#wpbody-content').load(code_html.substring(7) + ' #wpbody-content', function() {
+		  jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 		  
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_nav.js');
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_sidebar.js');

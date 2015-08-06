@@ -1,6 +1,6 @@
 
 	<div id="composition">
-	<form method="post" action="" id="send_mail">
+	<form method="post" action="" id="messagerie_send_mail">
 		<table id="compose">
 		<p><?php echo plugins_url('script_send.js', __FILE__);?>
 		<input type="hidden" name="action" value="send_mail"/>

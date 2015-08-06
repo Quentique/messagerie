@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 alert('hello');
-jQuery('#inbox .messagerie_lien').click(function (e) {
+jQuery('#inbox .messagerie_read_draft_sent').click(function (e) {
 alert('hello2');
 alert(jQuery(e.target).attr('trash'));
 	if (typeof jQuery(e.target).attr('trash') == 'undefined')
@@ -11,15 +11,17 @@ alert(jQuery(e.target).attr('trash'));
 	{
 	var trash = "&trash=1";
 	}
-	jQuery('#wpbody-content').load('admin.php?page=messagerie&use=read&mail=' + jQuery(e.target).attr('id_message') + trash + ' #wpbody-content', function (){
+	jQuery('#inbox').append('<div class="loader"></div>');
+	jQuery('#wpbody').load('admin.php?page=messagerie&use=read&mail=' + jQuery(e.target).attr('id_message') + trash + ' #wpbody-content', function (){
 	jQuery.getScript('../wp-content/plugins/messagerie/script_ck2.js');
 	jQuery.getScript('../wp-content/plugins/messagerie/script_sidebar.js');
 	jQuery.getScript('../wp-content/plugins/messagerie/script_nav.js');
 	});
 	});
 
-jQuery('#inbox .messagerie_action').click(function (f) {
+jQuery('#inbox .messagerie_delete').click(function (f) {
 alert(jQuery(f.target).closest("a").attr('id_message'));
+jQuery('#inbox').append('<div class="loader"></div>');
 jQuery.ajax({
 		url : ajaxurl,
 		type : 'GET',
@@ -27,7 +29,7 @@ jQuery.ajax({
 		data : 'action=delete_mail&mail=' + jQuery(f.target).closest('a').attr('id_message'),
 
 	      success : function(code_html, statut){
-		  jQuery('#wpbody-content').load(code_html.substring(7) + ' #wpbody-content', function() {
+		  jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 		  
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_nav.js');
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_sidebar.js');

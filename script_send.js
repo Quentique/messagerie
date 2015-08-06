@@ -1,5 +1,5 @@
 
-	jQuery('#send_mail').submit(function (e) {
+	jQuery('#messagerie_send_mail').submit(function (e) {
 	 e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
 
     for (instance in CKEDITOR.instances) {
@@ -20,6 +20,7 @@
 	 }
 	alert(donnees);
 	console.log('hello');
+	
 	jQuery.ajax({
 		url : ajaxurl,
 		type : 'POST',
@@ -29,7 +30,7 @@
 	      success : function(code_html, statut){
 		  alert(code_html);
            //jQuery(code_html).appendTo("#composition"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
-		   jQuery('#wpbody-content').load(code_html.substring(7) + ' #wpbody-content', function() {
+		   jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_nav.js');
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_sidebar.js');
 		   jQuery.getScript('../wp-content/plugins/messagerie/script_read.js');
@@ -68,7 +69,7 @@ jQuery("form input[type=submit]").click(function() {
 });*/
 /*var instance = CKEDITOR.instances.content;
 instance.updateElement();*/
-
+	jQuery('#inbox').append('<div class="loader"></div>');
     jQuery("input[type=submit]", jQuery(this).parents("form")).removeAttr("clicked");
     jQuery(this).attr("clicked", "true");
 });
