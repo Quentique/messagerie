@@ -35,13 +35,13 @@ jQuery(document).ready(function(){
 			success : function(code_html, statut){
 				jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 					jQuery.getScript('../wp-content/plugins/messagerie/script.js');
-					if (code_html.endsWith('1'))
+					if (code_html.endsWith('0'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail supprimé !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #23A62C" id="popup">Mail supprimé !</span>');
 					}
-					else if (code_html.endsWith('0'))
+					else if (code_html.endsWith('1'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de la suppression !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Erreur lors de la suppression !</span>');
 					}		
 			
 					jQuery('#popup').delay(3000).fadeOut('slow');
@@ -65,11 +65,11 @@ jQuery(document).ready(function(){
 					jQuery.getScript('../wp-content/plugins/messagerie/script.js');
 					if (code_html.endsWith('1'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail supprimé !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #23A62C" id="popup">Mail supprimé !</span>');
 					}
 					else if (code_html.endsWith('0'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de la suppression !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Erreur lors de la suppression !</span>');
 					}
 			
 					jQuery('#popup').delay(3000).fadeOut('slow');
@@ -116,11 +116,11 @@ jQuery(document).ready(function(){
 					jQuery.getScript('../wp-content/plugins/messagerie/script.js');
 					if (code_html.endsWith('1'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail correctement restauré !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #23A62C" id="popup">Mail correctement restauré !</span>');
 					}
 					else if (code_html.endsWith('0'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de la restauration du mail !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Erreur lors de la restauration du mail !</span>');
 					}
 			
 				jQuery('#popup').delay(3000).fadeOut('slow');
@@ -165,23 +165,23 @@ jQuery(document).ready(function(){
 					// On affiche un message en fonction de le réponse
 					if (code_html.endsWith('1'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail correctement envoyé !</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #23A62C" id="popup">Mail correctement envoyé !</span>');
 					}
 					else if (code_html.endsWith('0'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de l\'envoi</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Erreur lors de l\'envoi</span>');
 					}
 					else if (code_html.endsWith('2'))   
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Erreur lors de la sauvegarde</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Erreur lors de la sauvegarde</span>');
 					}
 					else if (code_html.endsWith('3'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail sauvegardé! </span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #23A62C" id="popup">Mail sauvegardé! </span>');
 					}
 					else if (code_html.endsWith('4'))
 					{
-						jQuery('#titre_messagerie').append('<span style="background-color: red" id="popup">Vous ne pouvez pas envoyer de messages, votre message a été placé dans les brouillons. Vous pouvez envoyer un message à votre administrateur pour de plus amples informations</span>');
+						jQuery('#titre_messagerie').append('<span style="background-color: #E50000" id="popup">Vous ne pouvez pas envoyer de messages, votre message a été placé dans les brouillons. Vous pouvez envoyer un message à votre administrateur pour de plus amples informations</span>');
 					}
 					jQuery('#popup').delay(3000).fadeOut('slow');
 				});

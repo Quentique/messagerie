@@ -4,7 +4,17 @@ float: left;
 margin-right: 25px;
 padding: 7px;
 }
-
+   
+#popup
+{
+margin-left: 15px;
+color: white;
+padding: 5px;
+border: 1px solid black;
+border-radius: 3px;
+font-weight: normal;
+font-size:20px;
+}
 #wpfooter
 {
 position: static;

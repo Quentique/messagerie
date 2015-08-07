@@ -16,11 +16,11 @@ jQuery(document).ready(function () {
 					jQuery.getScript('../wp-content/plugins/messagerie/script_options.js');
 					if (code_html.endsWith('0'))
 					{
-						jQuery('#titre_options').append('<span id ="popup" style="background-color: red;">Erreur lors de la mise à jour</span>');
+						jQuery('#titre_options').append('<span id ="popup" style="background-color: #E50000;">Erreur lors de la mise à jour</span>');
 					}
 					else
 					{
-						jQuery('#titre_options').append('<span id="popup" style="background-color: green;">Mise à jour des paramètres effectuée !</span>');
+						jQuery('#titre_options').append('<span id="popup" style="background-color: #23A62C;">Mise à jour des paramètres effectuée !</span>');
 					}
 		
 					jQuery('#popup').delay(3000).fadeOut('slow');
