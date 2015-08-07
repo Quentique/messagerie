@@ -8,7 +8,7 @@ Author: Quentin DE MUYNCK
 */ 
 
 
-function prefix_admin_send_mail()
+function prefix_admin_send_mail() // Fonction appelé par AJAX pour envoyer les mails
 {
 	if (!empty($_REQUEST))
 	{
@@ -86,7 +86,7 @@ function prefix_admin_send_mail()
 	wp_die();
 }
 
-function messagerie_options_send() 
+function messagerie_options_send() //Fonction AJAX pour mettre à jour les options
 {
 	global $wpdb;
 	$reponses = $wpdb->get_results('SELECT id, display_name, can_mail FROM wp_users');
@@ -121,7 +121,7 @@ function messagerie_options_send()
 	wp_die();
 }
 
-function ajax_delete_draft() 
+function ajax_delete_draft() // Fonction AJAX pour supprimer un brouillon
 {
 	global $wpdb;
 	if (get_current_user_id() == $wpdb->get_var($wpdb->prepare('SELECT sender FROM wp_messagerie WHERE id = %d', $_GET['mail'])))
@@ -140,7 +140,7 @@ function ajax_delete_draft()
 	wp_die();
 }
 	
-	function ajax_delete_mail() {	
+function ajax_delete_mail() {	 // Fonction AJAX pour supprimer un mail
 	global $wpdb;
 	if (get_current_user_id() == $wpdb->get_var($wpdb->prepare('SELECT receiver FROM wp_messagerie WHERE id = %d', $_GET['mail'])))
 	{
@@ -158,7 +158,7 @@ function ajax_delete_draft()
 	wp_die();
 }
 	
-function ajax_undo() 
+function ajax_undo() // Fonction AJAX pour remettre un mail supprimé en boîte de réception
 {
 	global $wpdb;
 	$result = $wpdb->update('wp_messagerie', array('dossier' => 'inbox'), array('id' => $_GET['mail']), array('%s'), array('%s'));
@@ -174,6 +174,7 @@ function ajax_undo()
 	wp_die();
 }
 
+// On enregistre les actions avec WordPress
 add_action('wp_ajax_send_mail', 'prefix_admin_send_mail' );
 add_action('wp_ajax_delete_draft', 'ajax_delete_draft');
 add_action('wp_ajax_delete_mail', 'ajax_delete_mail');
@@ -182,7 +183,7 @@ add_action('wp_ajax_messagerie_options_send', 'messagerie_options_send');
 
 class Messagerie
 {
-	public function __construct()
+	public function __construct() // Constructeur
  {
   register_activation_hook(__FILE__, array('Messagerie', 'install'));
   register_deactivation_hook(__FILE__, array('Messagerie', 'uninstall'));
@@ -190,25 +191,26 @@ class Messagerie
 		add_action('delete_user', 'messagerie_delete_user');
 	}
  
- public static function install()
+ public static function install() // Installation du plugins et créations des tables et des colonnes
  {
 		global $wpdb;
 		$wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}messagerie (id INT AUTO_INCREMENT PRIMARY KEY, sender VARCHAR(255) NOT NULL, receiver VARCHAR(255) NOT NULL, unread INT NOT NULL, objet VARCHAR(255) NOT NULL, message TEXT NOT NULL, date_envoi DATETIME NOT NULL, dossier VARCHAR(255) NOT NULL);");
 	 $wpdb->query("ALTER TABLE {$wpdb->prefix}users  ADD can_mail BOOLEAN DEFAULT true" );
 	}
 			
-	public static function uninstall()
+	public static function uninstall() // À la désactivation du plugin
 	{
 		global $wpdb;
   $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}messagerie;");
 		$wpdb->query("ALTER TABLE {$wpdb->prefix}users DROP can_mail;");
 	}
 	
-	public function add_admin_menu()
+	public function add_admin_menu() // On rajoute les interfaces
 	{
 		global $wpdb;
 		$reponse = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM wp_messagerie WHERE unread = 1 AND receiver = %d AND dossier = "inbox"', get_current_user_id()));
 
+		// En fonction du nombres de mails non-lus, on rajoute le nombre au titre (ou pas)
 		if ($reponse == 0)
 		{
 				add_menu_page('Messagerie', 'Messagerie', 'edit_posts', 'messagerie',  array($this, 'administration'), 'dashicons-email-alt');
@@ -220,14 +222,14 @@ class Messagerie
 		add_submenu_page('messagerie', 'Options', 'Options', 'delete_users', 'messagerie_options', array($this, 'options'));
 	}
 	
-	public function messagerie_delete_user($user_id)
+	public function messagerie_delete_user($user_id) // Suppression d'un utilisateur
 	{
 		global $wpdb;
 		$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE receiver = %d', $user_id));
 		$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE sender = %d AND dossier = %s OR %s', $user_id, 'draft', 'trash'));
 	}
 	
-	public function options()
+	public function options() // Affichage de la page d'options
 	{
 		_e('<h1 id="titre_options">Paramètres de Messagerie</h1>');
 		echo '<link rel="stylesheet" content="text/css" href="' . plugins_url() . '/messagerie/style.css"/>';
@@ -237,7 +239,7 @@ class Messagerie
 		global $wpdb;
 		$reponses = $wpdb->get_results('SELECT id, display_name, can_mail FROM wp_users');
 		echo '<form method="get" action="" id="send_options"/><input type="hidden" name="action" value="messagerie_options_send"/><table><thead><tr><th>Utilisateur</th><th>Peut envoyer des mails</th></tr></thead>';
-		
+		// On affiche le formulaire
 		foreach ($reponses as $reponse)
 		{?>
 				<tr><td><label for="<?php echo $reponse->id; ?>"> <?php echo $reponse->display_name;?></label> </td><td><input type="checkbox" name="<?php echo $reponse->id;?>" <?php checked($reponse->can_mail); ?> /></td></tr>
@@ -250,9 +252,10 @@ class Messagerie
 <?php
 	}
 	
-	public function administration()
+	public function administration() // Affichage de la page 
 	{
 		_e('<h1 id="titre_messagerie" style="display: inline-block;">Messagerie Interne</h1>', 'messagerie');
+		// On inclut les scripts et CSS
 		echo '<script src=" ' . plugins_url() . '/messagerie/ckeditor/ckeditor.js"></script>';
 		echo '<script src=" ' . plugins_url() . '/messagerie/script.js"></script>';
 		echo '<link rel="stylesheet" content="text/css" href="' . plugins_url() . '/messagerie/style.css"/>';
@@ -264,30 +267,7 @@ class Messagerie
 		</div>
 		<div id="content_messagerie">
 <?php
-		if (!isset($_GET['use']) || $_GET['use'] == 'inbox' || $_GET['use'] == 'sent' || $_GET['use'] == 'trash' || $_GET['use'] == 'draft')
-		{
-				include_once('inbox.php'); 
-		}
-		elseif ($_GET['use'] == read)
-		{
-				include_once('read.php');
-		}
-	 elseif ($_GET['use'] == 'compose' || $_GET['use'] == 'answer' || $_GET['use'] == 'forward' || $_GET['use'] == 'continue' )
-		{
-				include_once('compose.php');
-		}
-		elseif ($_GET['use'] == 'delete')
-		{
-				include_once('delete.php');
-		}
-		elseif ($_GET['use'] == 'undo')
-		{
-				include_once('undo.php');
-		}
-		elseif($_GET['use'] == 'deldraft')
-		{
-	   include_once('delete_draft.php');
-		}
+  include_once('inbox.php');
 	}
 }
 ?> </div><?php 
