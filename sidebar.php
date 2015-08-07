@@ -5,12 +5,11 @@
 
 	if(empty($reponse))
 	{
-
-			_e('<li><a href="#" id="inbox_folder">Boîte de Réception</a></li>', 'messagerie');
+		_e('<li><a href="#" id="inbox_folder">Boîte de Réception</a></li>', 'messagerie');
 	}
 	else
 	{
-			_e('<li><a href="#" id="inbox_folder">Boîte de Réception (' . $reponse . ')</a></li>', 'messagerie');
+		_e('<li><a href="#" id="inbox_folder">Boîte de Réception (' . $reponse . ')</a></li>', 'messagerie');
 	}
 	
 	_e('<li><a href="#" id="sent_folder">Messages Envoyés</a></li>', 'messagerie');
