@@ -6,11 +6,13 @@
 		<?php 
 			$users = get_users(array('fields' => array('id', 'display_name' )));
 		
+			// Si on continue un mail ou qu'on répond, on récupère l'ancien mail pour pouvoir le ré-injecter
 			if ($_GET['use'] == answer || $_GET['use'] == 'forward' || $_GET['use'] == 'continue')
 			{
 				$mess = $wpdb->get_row($wpdb->prepare('SELECT * FROM wp_messagerie WHERE id = %d', $_GET['mail']));
 			}
 		
+			// On affiche tous les utilisateurs en mettant leurs id en value et leurs noms en display
 			foreach($users as $user)
 			{
 					if (isset($mess) && $user->id == $mess->sender )

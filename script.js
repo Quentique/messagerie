@@ -1,14 +1,15 @@
 jQuery(document).ready(function(){
-	jQuery('#inbox .messagerie_draft').click(function (e) {
 
-		jQuery('#inbox').append('<div class="loader"></div>');
+	jQuery('#inbox .messagerie_draft').click(function (e) { 
+	// Quand on appuie sur le lien pour continuer le mail
+		jQuery('#inbox').append('<div class="loader"></div>'); // Affiche un div qui fait un loader
 		jQuery('#wpbody').load('admin.php?page=messagerie&use=continue&mail=' + jQuery(e.target).attr('id_message') + ' #wpbody-content', function () {
-			jQuery.getScript('../wp-content/plugins/messagerie/script.js');
+			jQuery.getScript('../wp-content/plugins/messagerie/script.js'); // On ré-injecte le script
 		});
 	});
 	
 	jQuery('#inbox .messagerie_read').click(function (a) {
-		if (typeof jQuery(a.target).attr('trash') == 'undefined')
+		if (typeof jQuery(a.target).attr('trash') == 'undefined') // Permet de savoir si on est dans le dossier poubelle
 		{
 			var trash = "&trash=0";
 		}
@@ -24,6 +25,7 @@ jQuery(document).ready(function(){
 
 	jQuery('#inbox .messagerie_delete').click(function (f) {
 		jQuery('#inbox').append('<div class="loader"></div>');
+		// Requête AJAX pour supprimer le message
 		jQuery.ajax({
 			url : ajaxurl,
 			type : 'GET',
@@ -51,6 +53,7 @@ jQuery(document).ready(function(){
 	
 	jQuery('#inbox .messagerie_delete_draft').click(function (f) {
 		jQuery('#inbox').append('<div class="loader"></div>');
+		// Requête pour supprimer le BROUILLON
 		jQuery.ajax({
 			url : ajaxurl,
 			type : 'GET',
@@ -100,6 +103,7 @@ jQuery(document).ready(function(){
 
 	jQuery('#inbox .messagerie_undo').click(function (g) {
 		jQuery('#inbox').append('<div class="loader"></div>');
+		// Requête pour remettre un message supprimé en boîte de réception
 		jQuery.ajax({
 			url : ajaxurl,
 			type : 'GET',
@@ -128,16 +132,17 @@ jQuery(document).ready(function(){
 
 	jQuery('#messagerie_send_mail').submit(function (e) {
 		e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
-		jQuery('#messagerie_send_mail').append('<div class="loader"></div>');
+		jQuery('#messagerie_send_mail').append('<div class="loader"></div>'); // LOADER
 		
+		// On update les textareas en ré_injectant la valeur dans les textareas
 		for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
 		}
 	
-		var idbouton = jQuery("input[type=submit][clicked=true]").attr('name');
+		var idbouton = jQuery("input[type=submit][clicked=true]").attr('name'); // On récupère le bouton cliqué
 		var donnees = jQuery(this).serialize(); // On créer une variable content le formulaire sérialisé
 		var texte = '';
-		if (idbouton == 'envoie')
+		if (idbouton == 'envoie') // Permet de savoir si on envoie ou on sauvegarde l'email
 		{
 			texte = '&envoie=';
 		}
@@ -145,7 +150,8 @@ jQuery(document).ready(function(){
 		{
 			texte = '&brouillon=';
 		}
-	
+		
+		// REQUETE
 		jQuery.ajax({
 			url : ajaxurl,
 			type : 'POST',
@@ -156,6 +162,7 @@ jQuery(document).ready(function(){
 				jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 					jQuery.getScript('../wp-content/plugins/messagerie/script.js');
 					
+					// On affiche un message en fonction de le réponse
 					if (code_html.endsWith('1'))
 					{
 						jQuery('#titre_messagerie').append('<span style="background-color: green" id="popup">Mail correctement envoyé !</span>');
@@ -183,7 +190,7 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery("form input[type=submit]").click(function() {
-
+		// Ajoute l'attribut permettant de savoir quel bouton a été cliqué.
 		jQuery('#inbox').append('<div class="loader"></div>');
 		jQuery("input[type=submit]", jQuery(this).parents("form")).removeAttr("clicked");
 		jQuery(this).attr("clicked", "true");

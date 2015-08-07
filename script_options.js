@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-
+	// Envoie du formulaire 
 	jQuery('#send_options').submit(function (e) {
 		e.preventDefault();
 		jQuery('#messagerie_expli').append('<div class="loader"></div>');

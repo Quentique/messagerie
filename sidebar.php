@@ -3,7 +3,7 @@
 	global $wpdb;
 	$reponse = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}messagerie WHERE unread = 1 AND receiver = %d AND dossier = \"inbox\"", get_current_user_id()));
 
-	if(empty($reponse))
+	if(empty($reponse)) // Nous permet d'afficher le nombre de mails non-lus
 	{
 		_e('<li><a href="#" id="inbox_folder">Boîte de Réception</a></li>', 'messagerie');
 	}

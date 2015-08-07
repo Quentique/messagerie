@@ -1,12 +1,12 @@
-<table id="inbox">
+<table id="inbox"> <!-- Tableau de la boîte de réception -->
  <thead>
 	 <?php 
-		if ($_GET['use'] == 'sent')
+		if ($_GET['use'] == 'sent') // On affiche différentes en-têtes en fonction de la page demandée
 		{ ?>
 			<tr><td><?php _e('Destinataire', 'messagerie');?></td><td><?php _e('Objet', 'messagerie');?></td><td><?php _e('Message', 'messagerie');?></td><td><?php _e('Date d\'envoi', 'messagerie');?></td></tr>
 		<?php 
 		}
-		else if ($_GET['use'] == 'draft')
+		else if ($_GET['use'] == 'draft') // draft = brouillon
 		{?>
 			<tr><td><?php _e('Destinataire', 'messagerie');?></td><td><?php _e('Objet', 'messagerie');?></td><td><?php _e('Message', 'messagerie');?></td><td><?php _e('Date d\'envoi', 'messagerie');?></td></tr><?php
 		}
@@ -20,7 +20,7 @@
  <tbody>
 		<?php
 		global $wpdb;
-		
+		// On fait les requêtes en fonction de la demande.
 		if ($_GET['use'] == 'sent')
 		{
 				$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE sender = %d AND dossier = %s OR %s ORDER BY date_envoi DESC", get_current_user_id(), 'inbox', 'trash'));
@@ -37,7 +37,7 @@
 		{
 				$reponse = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}messagerie WHERE receiver = %d AND dossier = %s ORDER BY date_envoi DESC", get_current_user_id(), 'inbox'));
 		}
-	
+		// Pour chaque réponse, on créer une nouvelle ligne 
 		foreach($reponse as $donnes)
 		{
 			if ($_GET['use'] == 'sent' || $_GET['use'] == 'draft')
