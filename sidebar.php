@@ -5,6 +5,7 @@
 
 	if(empty($reponse))
 	{
+
 			_e('<li><a href="#" id="inbox_folder">Boîte de Réception</a></li>', 'messagerie');
 	}
 	else

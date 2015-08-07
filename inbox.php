@@ -14,7 +14,9 @@
 			else
 		{
 		?>
+
 			<tr><td></td><td><?php _e('Expéditeur', 'messagerie');?></td><td><?php _e('Objet', 'messagerie');?></td><td><?php _e('Message', 'messagerie');?></td><td><?php _e('Date d\'envoi', 'messagerie');?></td></tr>
+
 		<?php 
 		}
 		?>

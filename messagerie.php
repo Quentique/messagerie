@@ -60,6 +60,7 @@ if (!empty($_REQUEST))
 					{
 							$result = $wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE id = %d', $_POST['id_mess']));
 					}
+
 			if ($result === false && isset($_POST['envoie']))
 			{
 	 	echo 'admin.php?page=messagerie&use=inbox&ok=0';
@@ -124,6 +125,7 @@ if (!empty($_REQUEST))
 					}
 			wp_die();
 		}
+
 		function ajax_delete_draft() {
 
 	
@@ -224,7 +226,8 @@ class Messagerie
 	public static function uninstall()
 	{
 		global $wpdb;
-  $wpdb->query("DROP TABLE {$wpdb->prefix}messagerie;");
+  $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}messagerie;");
+
 		$wpdb->query("ALTER TABLE {$wpdb->prefix}users DROP can_mail;");
 	}
 	
@@ -248,10 +251,12 @@ class Messagerie
 				add_menu_page('Messagerie', 'Messagerie <span title="' . $reponse . ' nouveaux e-mails" class="update-plugins count-2"><span class="update-count">' . $reponse . '</span></span>', 'edit_posts', 'messagerie',  array($this, 'administration'), 'dashicons-email-alt');
 		}
 		add_submenu_page('messagerie', 'Options', 'Options', 'delete_users', 'messagerie_options', array($this, 'options'));
+
 	}
 	public function messagerie_delete_user($user_id)
 	{
 		global $wpdb;
+
 		$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE receiver = %d', $user_id));
 		$wpdb->query($wpdb->prepare('DELETE FROM wp_messagerie WHERE sender = %d AND dossier = %s OR %s', $user_id, 'draft', 'trash'));
 	}
@@ -276,10 +281,13 @@ class Messagerie
 </table>
 </form>
 <?php
+
+
 	}
 	
 	public function administration()
 	{
+
 		_e('<h1 id="titre_messagerie" style="display: inline-block;">Messagerie Interne</h1>', 'messagerie');
 		echo '<script src=" ' . plugins_url() . '/messagerie/ckeditor/ckeditor.js"></script>';
 				echo '<script src=" ' . plugins_url() . '/messagerie/script.js"></script>';

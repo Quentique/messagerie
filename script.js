@@ -1,12 +1,13 @@
 jQuery(document).ready(function(){
+
 jQuery('#inbox .messagerie_draft').click(function (e) {
+
 jQuery('#inbox').append('<div class="loader"></div>');
 	jQuery('#wpbody').load('admin.php?page=messagerie&use=continue&mail=' + jQuery(e.target).attr('id_message') + ' #wpbody-content', function () {
 	jQuery.getScript('../wp-content/plugins/messagerie/script.js');
 	});
 });
 jQuery('#inbox .messagerie_read').click(function (a) {
-
 
 	if (typeof jQuery(a.target).attr('trash') == 'undefined')
 	{
@@ -23,7 +24,6 @@ jQuery('#inbox .messagerie_read').click(function (a) {
 	});
 
 jQuery('#inbox .messagerie_delete').click(function (f) {
-
 jQuery('#inbox').append('<div class="loader"></div>');
 jQuery.ajax({
 		url : ajaxurl,
@@ -52,7 +52,6 @@ jQuery.ajax({
 
 });		
 jQuery('#inbox .messagerie_delete_draft').click(function (f) {
-
 jQuery('#inbox').append('<div class="loader"></div>');
 jQuery.ajax({
 		url : ajaxurl,
@@ -79,6 +78,7 @@ jQuery.ajax({
 		  }
 		  });
 });
+
 
 		
     jQuery('#new_email').on('click', function () {
@@ -139,6 +139,7 @@ jQuery.ajax({
 
 	jQuery('#messagerie_send_mail').submit(function (e) {
 	 e.preventDefault(); // Le navigateur ne peut pas envoyer le formulaire
+
 jQuery('#messagerie_send_mail').append('<div class="loader"></div>');
     for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
@@ -147,7 +148,6 @@ jQuery('#messagerie_send_mail').append('<div class="loader"></div>');
 	 var idbouton = jQuery("input[type=submit][clicked=true]").attr('name');
     var donnees = jQuery(this).serialize(); // On créer une variable content le formulaire sérialisé
 	 var texte = '';
-	 
 	 if (idbouton == 'envoie')
 	 {
 	 texte = '&envoie=';
@@ -156,7 +156,6 @@ jQuery('#messagerie_send_mail').append('<div class="loader"></div>');
 	 {
 	 texte = '&brouillon=';
 	 }
-	
 	console.log('hello');
 	
 	jQuery.ajax({
@@ -166,7 +165,6 @@ jQuery('#messagerie_send_mail').append('<div class="loader"></div>');
 		data : donnees + texte,
 
 	      success : function(code_html, statut){
-		  
            //jQuery(code_html).appendTo("#composition"); // On passe code_html à jQuery() qui va nous créer l'arbre DOM !
 		   jQuery('#wpbody').load(code_html.substring(7) + ' #wpbody-content', function() {
 		   jQuery.getScript('../wp-content/plugins/messagerie/script.js');

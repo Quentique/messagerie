@@ -1,4 +1,5 @@
 
+
 	<form method="post" action="" id="messagerie_send_mail">
 		<table id="compose">
 		<input type="hidden" name="action" value="send_mail"/>
@@ -24,9 +25,11 @@
 			}
 			?>
 			</select></td></tr>
+
 			<tr><td><label for="obj"><?php _e('Objet :', 'messagerie');?></label></td><td><input name="obj" type="text" maxlength="255" <?php if (isset($mess) && $_GET['use'] == 'answer') { echo 'value="RE: '. $mess->objet . '"'; } elseif ($_GET['use'] == 'forward') { echo 'value="FW: '. $mess->objet . '"'; } elseif ($_GET['use'] == 'continue') { echo 'value="' . $mess->objet . '"'; }?>/></td></tr>
 			<tr><td><label for="mess"><?php _e('Message :', 'messagerie');?></label></td><td><textarea rows="10" cols="25" name="mess" id="txt-aref"><?php if (isset($mess) && $_GET['use'] != 'continue') { echo html_entity_decode('<br/><hr/><span>De : ' . get_user_by('id', $mess->sender)->display_name . '</span><br/><span>À : ' . get_user_by('id', $mess->receiver)->display_name . '</span><br/><span>Objet : </span>' . $mess->objet . '</span><br/><span>Date : ' . $mess->date_envoi . '</span><br/>' . $mess->message); } elseif (isset($mess) && $_GET['use'] == 'continue') { echo $mess->message; }?></textarea></td></tr>
 			<tr><td colspan="2"><input type="submit" name="envoie" id="envoie" value="<?php _e('Envoyer', 'messagerie'); ?>"/><input type="submit" name="brouillon" value="<?php _e('Sauvegarder le brouillon', 'messagerie');?>"/><?php if(isset($mess) && $_GET['use'] == 'continue') { echo '<input type="hidden" name="id_mess" value="' . $mess->id . '"/>';}?></td></tr>
 		</table>
 		
 	</form>
+
