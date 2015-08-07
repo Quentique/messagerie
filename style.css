@@ -4,11 +4,12 @@ float: left;
 margin-right: 25px;
 padding: 7px;
 }
+
 #wpfooter
 {
 position: static;
-
 }
+
 #messagerie_nav li
 {
 border: 2px solid #E7E7E7;
@@ -16,14 +17,17 @@ padding: 2.5px;
 margin-left: 5px;
 background-color: white;
 }
+
 #messagerie_nav li a 
 {
 padding: 5px;
 }
+
 #messagerie_sidebar ul li:first-child
 {
 margin-top: 0px;
 }
+
 #messagerie_sidebar li
 {
 margin-top: 5px;
@@ -36,32 +40,39 @@ padding: 5px;
 {
 width: 600px;
 }
+
 #cke_1_contents
 {
 height: 300px;
 }
+
 #cke_1_top
 {
 display: block;
 }
+
 span[id="cke_txt-aref_arialbl"] + div span[id="cke_1_top"]
 {
 display: block;
 }
+
 nav ul li
 {
 display: inline;
 }
+
 #inbox
 {
 border-collapse: collapse;
 }
+
 #image
 {
 position: relative;
 }
-.loader {
 
+.loader 
+{
 position : fixed;
 z-index: 9999;
 background : url('loader.gif') 50% 50% no-repeat;
@@ -71,22 +82,26 @@ height : 100%;
 width : 100%;
 cursor : wait;
 }
+
 #inbox thead tr
 {
 border-bottom: solid 1px #E7E7E7;
 }
+
 #inbox thead td
 {
 padding: 10px;
 vertical-align: center;
 text-align: center;
 }
+
 #compose
 {
 border: 1px solid #E7E7E7;
 background-color: white;
 padding: 10px;
 }
+
 input[type="submit"]
 {
 box-shadow: 0px 1px 0px #FFF inset, 0px 1px 0px rgba(0, 0, 0, 0.08);
@@ -94,44 +109,51 @@ border: 1px solid #CCC;
 border-radius: 3px;
 padding: 5px;
 background: none repeat scroll 0% 0% #F7F7F7;
-
 }
+
 input[type="submit"]:hover
 {
 background: none repeat scroll 0% 0% #FAFAFA;
 border-color: #999;
 }
-input + input
-{
+
+input +input
+{ 
 margin-left: 8px;
 }
+
 input[type="submit"]:active
 {
 background: none repeat scroll 0 0 #eee;
 border-color: #999;
 box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.5) inset;
 }
+
 input[type="checkbox"]
 {
 padding-left: auto;
 padding-right: auto;
 text-align: center;
 }
+
 #inbox
 {
 background-color: white;
 border: 1px solid #E7E7E7;
 box-shadow: 1px 1px 12px #D7D7D7;
 }
+
 #inbox tbody td
 {
 padding: 10px;
 text-align: center;
 }
+
 #inbox tbody > :nth-child(odd)
 {
 background-color: #F9F9F9;
 }
+
 div#cke_test2 div.cke_inner span.cke_top
 {
 display: none;
